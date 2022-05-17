@@ -1,6 +1,13 @@
-let aDeviner, nmbChance, essais, nombre_choisit;
+let aDeviner, nmbChance, nombre_choisit;
+let essais = []
 
-function proposerDeRejouer(){
+
+function nouvellePartie(){
+
+    essais = []
+
+    nmbChance = 3
+
     /**
      * Création du numéro aléatoire entre 1 et 100
      */
@@ -10,63 +17,56 @@ function proposerDeRejouer(){
     /**
      * On initie une variable chance avec 10 tentatives
      */
-    nmbChance = 10
+  
 
     continuerPartie();
 }
 
+
+
 function continuerPartie(){
-    /**
-     * Demande du numéro initial au joueur
-     */
-     essais = []
+    
+
      nombre_choisit = prompt('merci de saisir un numéro entre 1 et 100')
+     nmbChance = nmbChance - 1
  
      essais.push(nombre_choisit);
+     console.log(essais);
+
 
      comparerLeChiffreChoisitEtLeNombreAleatoire()
 
 }
 
+
 function comparerLeChiffreChoisitEtLeNombreAleatoire(){
 
-    if (nmbChance <= 0) {
-        // T'as perdu…
-        alert('you loose')
-        proposerDeRejouer()
+    let lastEssai = essais[essais.length - 1]
+
+    if (lastEssai == aDeviner) {
+
+        reJouer(' gagner ', 'tu as été bon donc bravo et a bientôt' )
     
     } else {
-        // T'as encore des chances
-        /**
-         * On affiche le nmb d'essaies restant et le numéro précedent
-         */
-    
-        // Nombre chance restante
-        let nmbChanceRestante = nmbChance - essais.length
-    
-        alert('Merci de saisir un nouveau numéro, il vous reste ' + nmbChanceRestante + ' chances ' + ' et vos numero précedent son ' + essais.join('-'))
-    
-    
-        /**
-         * 
-         */
-        let lastEssai = essais[essais.length - 1]
-    
-        if( lastEssai == aDeviner){
-            // t'as gagné.
-            alert('vous avez gagner')
-            proposerDeRejouer()
+       
+        
+        if( nmbChance == 0  ){
+            // T'as perdu…   
+
+            reJouer(' perdu ', ' au non tu pars déja ')
+
     
         } else {
             // T'as perdu
             if(lastEssai < aDeviner){
-                alert('tu es trop bas')
+                alert('Tu es trop bas merci de saisir un nouveau numéro, il vous reste ' + nmbChance + ' chances ' + ' et vos numero précedent son ' + essais.join('-'))
     
             } else{
-                alert('tu es trop bas')
+                alert('Tu es trop haut merci de saisir un nouveau numéro, il vous reste ' + nmbChance + ' chances ' + ' et vos numero précedent son ' + essais.join('-'))
                 
             }
-            nmbChance = nmbChance - 1
+    
+
             // revenir a l'etape #2
             continuerPartie();
         }
@@ -74,8 +74,19 @@ function comparerLeChiffreChoisitEtLeNombreAleatoire(){
     }
 }
 
+function reJouer(state, depart){
+    // t'as gagné.
+    let reJouer = confirm('vous avez'+  state + 'est ce que vous voulez rejouer ?')
 
-proposerDeRejouer();
+    if(reJouer) {
+        nouvellePartie()
+    }else{
+        alert(depart)
+    }
+}
+
+
+nouvellePartie();
 
 
 
