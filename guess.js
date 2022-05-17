@@ -23,18 +23,35 @@ function nouvellePartie(){
 }
 
 
-
 function continuerPartie(){
+
+    nombre_choisit = prompt('merci de saisir un numéro entre 1 et 100')
+
+    console.log(isNaN(nombre_choisit));
+
+
+    if (isNaN(nombre_choisit) || nombre_choisit >100 || nombre_choisit <0 ){
+
+        alert('merci de saisir un chiffre valide entre 1 et 100  bordel de merde')
+        continuerPartie()
+    }
+
+
+    nombre_choisit = parseInt(nombre_choisit, 10)
+    console.log(nombre_choisit);
+        
     
 
-     nombre_choisit = prompt('merci de saisir un numéro entre 1 et 100')
-     nmbChance = nmbChance - 1
- 
-     essais.push(nombre_choisit);
-     console.log(essais);
+    // console.log(nombre_choisit);
+
+    // on doit controller la donnée et la convertir en entier
+    nmbChance = nmbChance - 1
+
+    essais.push(nombre_choisit);
+    console.log(essais);
 
 
-     comparerLeChiffreChoisitEtLeNombreAleatoire()
+    comparerLeChiffreChoisitEtLeNombreAleatoire()
 
 }
 
@@ -46,6 +63,7 @@ function comparerLeChiffreChoisitEtLeNombreAleatoire(){
     if (lastEssai == aDeviner) {
 
         reJouer(' gagner ', 'tu as été bon donc bravo et a bientôt' )
+           
     
     } else {
        
@@ -85,49 +103,7 @@ function reJouer(state, depart){
     }
 }
 
-
 nouvellePartie();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// for (nmbChance = 10; nmbChance <= 0; nmbChance--) {
-
-//     // Si il n'a plus de chance il a perdu et on lui demande si il souhaite jouer a nouveau
-//     /*if(nmbChance <=0){
-//         alert('vous n\'avez plus de chance désolé c\'est perdu')
-//         confirm('souhaitez-vous jouez de nouveau ?')
-//         break
-//     }
-//     */
-//     // si l'essaie est égal au nmb a deviner alors il gagne et on lui propose de jouer une nouvelle fois
-//     if (essais === aDeviner) {
-//         alert('vous avez gagner yahouououou')
-//         confirm('souhaitez-vous jouez de nouveau ?')
-//         break
-
-
-//         //si l'essaie est en dessous alors on lui demande de reessayer 
-//     } else if (essais < aDeviner) {
-//         alert('vous etes trop bas, essayer encore')
-//         prompt(afficherEssais)
-
-
-//     } else {
-//         alert('vous etes trop haut, essayer encore')
-//         prompt(afficherEssais)
-//     }
-
-
-
-// }
