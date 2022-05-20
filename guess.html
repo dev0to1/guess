@@ -19,17 +19,15 @@
           <p class="mt-3 max-w-3xl text-lg leading-6 text-indigo-200">le jeu est simple, choisis un numéro entre 0 et 100, tu as 3 chance pas plus</p>
         </div>
         <div class="mt-8 sm:w-full sm:max-w-md xl:mt-0 xl:ml-8">
-          <form class="sm:flex">
-            <label for="email-address" class="sr-only">un numéro entre 0 et 100</label>
-            <input id="email-address" name="email-address" type="email" autocomplete="email" required class="w-full border-white px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md" placeholder="un numéro entre 0 et 100">
+          <form class="sm:flex" id="form">
+            <label for="inputField" class="sr-only">un numéro entre 0 et 100</label>
+            <input id="inputField" value="" name="inputField" type="inputField" autocomplete="number" required class="w-full border-white px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md" placeholder="entre un numéro entre 0 et 100">
             <button type="submit" id="jouer" class="mt-3 w-full flex items-center justify-center px-5 py-3 border border-transparent shadow text-base font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white sm:mt-0 sm:ml-3 sm:w-auto sm:flex-shrink-0">jouer</button>
           </form>
 
-          <button class="but">Button test</button>
-
-          <p class="mt-3 text-sm text-indigo-200">
-            Il te reste x chance et tes dernier numéro sont X - X - X
-           <p class="text-red-600 font-medium"> BRAVOOOO TU AS GAGNER !!! EST CE QUE TU VEUX REJOUER</p>
+          <p class="mt-3 text-sm text-indigo-200"id="infoChance">
+            Ici tu verras le nombre de chance qu'il te reste et les derniers chiffres saisi
+           <p class="text-red-600 font-medium" id="messageFin">VAS Y TENTE TA CHANCE COPAIN :)</p>
           </p>
         </div>
       </div>
