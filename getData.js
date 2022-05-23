@@ -6,10 +6,12 @@ let elementChanceMessage =  document.querySelector('#infoChance')
 // je récupere l'élement saisie par le joueur
 let inputElement = document.querySelector('#inputField')
 let formElement = document.querySelector('#form')
+let chanceRestante = document.querySelector('#chanceRestante')
+let chanceReduite = 3
+let popupForm = document.querySelector("#popup")
 
 
-
-
+// récupération de l'input du joueur
 document.addEventListener("DOMContentLoaded", () => {
 
     formElement.addEventListener('submit', function(e){
@@ -19,11 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
         //console.log(nombre_choisit);
 
         continuerPartie()
-  
+
     })
-
 });
-
 
 
 function nouvellePartie(){
@@ -31,9 +31,10 @@ function nouvellePartie(){
     // clean du champ input a la saisie
     inputElement.value = ""
 
+    // tableau stockant les essaies
     essais = []
 
-    nmbChance = 3
+    nmbChance = chanceReduite 
 
     /**
      * Création du numéro aléatoire entre 1 et 100
@@ -41,11 +42,7 @@ function nouvellePartie(){
     aDeviner = Math.floor(Math.random() * 100) + 1
     console.log(aDeviner);
 
-    /**
-     * On initie une variable chance avec 10 tentatives
-     */
-  
-
+    chanceRestante.innerHTML = 'TU COMMENCE LE JEU AVEC ' + chanceReduite + ' CHANCES'
 }
 
 
@@ -59,17 +56,16 @@ function continuerPartie(){
 
         //console.log("je suis bien dans la condition le chiffre saisie n'est pas bon je dois afficher un message");
         elementMessage.innerHTML = "merci de saisir un chiffre valide entre 1 et 100  bordel de merde"  
-        
-        return
-        
+      
+        return  
     }
 
-
+    // on doit controller la donnée et la convertir en entier
     nombre_choisit = parseInt(nombre_choisit, 10)
     //console.log(nombre_choisit);
         
 
-    // on doit controller la donnée et la convertir en entier
+    // on décremente a chaque tout
     nmbChance = nmbChance - 1
 
     essais.push(nombre_choisit);
@@ -80,27 +76,38 @@ function continuerPartie(){
 }
 
 
+
 function comparerLeChiffreChoisitEtLeNombreAleatoire(){
 
     let lastEssai = essais[essais.length - 1]
 
     if (lastEssai == aDeviner) {
 
-        elementChanceMessage.innerHTML = "C'est tout bon, tu as joué " + (3 - nmbChance) + "fois et tes derniers numéro était " + essais.join('-')
+        if(chanceReduite === 1 ){
+            elementMessage.innerHTML = "t es un bassss est ce tu veux rejouer"
+
+            popupForm.style.display = "block"
+          
+        }
+
+        elementChanceMessage.innerHTML = "C'est tout bon, tu as joué " + (3 - nmbChance) + " fois et tes derniers numéro était " + essais.join('-')
         
         elementMessage.innerHTML = "bravo tu as gagné, est ce que tu veux " +  "<button> rejouer <button>"
 
-        nouvellePartie();
+        chanceReduite = chanceReduite - 1
 
+        nouvellePartie();
            
     
     } else {
        
         
-        if( nmbChance === 0  ){
+        if( nmbChance === 0){
             // T'as perdu…    
             elementMessage.innerHTML = "déso tu as perdu, est ce que tu veux rejouer " 
             elementChanceMessage.innerHTML = "Arfff dommage, tu as joué " + (3 - nmbChance) + "fois et tes derniers numéro était " + essais.join('-')
+            chanceReduite.innerHTML ="tu n as malheureeseent plus de chance"
+            
 
             nouvellePartie();
 
@@ -124,7 +131,11 @@ function comparerLeChiffreChoisitEtLeNombreAleatoire(){
     }
 }
 
-
+function theEnd(){
+    console.log("bonjoru");
+    document.location.replace("https://www.w3schools.com")
+    return
+}
 
 nouvellePartie();
 
