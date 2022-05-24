@@ -1,18 +1,27 @@
-let aDeviner, nmbChance, nombre_choisit, essais;
+let aDeviner, nmbChance, nombre_choisit, essais, elementMessage, elementChanceMessage, inputElement, formElement, chanceRestante, popupForm, rejouerButton, partirBtn;
 // message en rouge indiquer win or loose
-let elementMessage =  document.querySelector('#messageFin')
-// message indiquant le nombre de chance et les derniers chiffres
-let elementChanceMessage =  document.querySelector('#infoChance')
-// je récupere l'élement saisie par le joueur
-let inputElement = document.querySelector('#inputField')
-let formElement = document.querySelector('#form')
-let chanceRestante = document.querySelector('#chanceRestante')
+
 let chanceReduite = 3
-let popupForm = document.querySelector("#popup")
+
 
 
 // récupération de l'input du joueur
 document.addEventListener("DOMContentLoaded", () => {
+
+    elementMessage = document.querySelector('#messageFin')
+    // message indiquant le nombre de chance et les derniers chiffres
+    elementChanceMessage = document.querySelector('#infoChance')
+    // je récupere l'élement saisie par le joueur
+    inputElement = document.querySelector('#inputField')
+    formElement = document.querySelector('#form')
+    chanceRestante = document.querySelector('#chanceRestante')
+    popupForm = document.querySelector("#popup")
+    rejouerButton = document.querySelector("#rejouerButton")
+    partirBtn = document.querySelector("#partirBtn")
+
+    console.log(partirBtn);
+
+    nouvellePartie()
 
     formElement.addEventListener('submit', function(e){
 
@@ -23,6 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
         continuerPartie()
 
     })
+
+    rejouerButton.addEventListener('click', function(e){
+        e.preventDefault()
+        nouvellePartie()
+    })
+
+    partirBtn.addEventListener('click', function(e){
+        e.preventDefault()
+        theEnd()
+    })
+
 });
 
 
@@ -68,9 +88,11 @@ function continuerPartie(){
     // on décremente a chaque tout
     nmbChance = nmbChance - 1
 
+    // on stock l'essaie dans le tableau
     essais.push(nombre_choisit);
     console.log(essais);
 
+    // on compare maintenant le chiifre saisie et le chiffre aléatoire
     comparerLeChiffreChoisitEtLeNombreAleatoire()
 
 }
@@ -83,15 +105,14 @@ function comparerLeChiffreChoisitEtLeNombreAleatoire(){
 
     if (lastEssai == aDeviner) {
 
+        // si il arrive a trouver 3 fois avec les chances sui se décrementent
         if(chanceReduite === 1 ){
-            elementMessage.innerHTML = "t es un bassss est ce tu veux rejouer"
-
-            popupForm.style.display = "block"
-          
+            popupForm.style.display = "block"  
+            return
+            // separer le block en classe a part
         }
 
         elementChanceMessage.innerHTML = "C'est tout bon, tu as joué " + (3 - nmbChance) + " fois et tes derniers numéro était " + essais.join('-')
-        
         elementMessage.innerHTML = "bravo tu as gagné, est ce que tu veux " +  "<button> rejouer <button>"
 
         chanceReduite = chanceReduite - 1
@@ -107,11 +128,9 @@ function comparerLeChiffreChoisitEtLeNombreAleatoire(){
             elementMessage.innerHTML = "déso tu as perdu, est ce que tu veux rejouer " 
             elementChanceMessage.innerHTML = "Arfff dommage, tu as joué " + (3 - nmbChance) + "fois et tes derniers numéro était " + essais.join('-')
             chanceReduite.innerHTML ="tu n as malheureeseent plus de chance"
-            
 
             nouvellePartie();
 
-    
         } else {
             // T'as perdu
             if(lastEssai < aDeviner){    
@@ -133,11 +152,11 @@ function comparerLeChiffreChoisitEtLeNombreAleatoire(){
 
 function theEnd(){
     console.log("bonjoru");
-    document.location.replace("https://www.w3schools.com")
-    return
+    document.location.href = "https://www.w3schools.com"
+
 }
 
-nouvellePartie();
+
 
 
 
